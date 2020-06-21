@@ -99,6 +99,17 @@ class MainActivity : BaseActivity() {
         chatList.add(Chat("CPU", "${strikeCount}S ${ballCount}B 입니다."))
 
         mChatAdapter.notifyDataSetChanged()
+
+//        만약 3S 라고 하면 => 정답 맞춘 상황. 축하메세지  + 게임 종료
+        if (strikeCount == 3) {
+            chatList.add(Chat("CPU" , "축하합니다!!"))
+
+            Toast.makeText(mContext, "게임을 종료합니다." , Toast.LENGTH_SHORT).show()
+
+//            입력도 못하도록 막자.
+            numberEdt.isEnabled = false
+            inputBtn.isEnabled = false
+        }
     }
 
     override fun setValues() {
