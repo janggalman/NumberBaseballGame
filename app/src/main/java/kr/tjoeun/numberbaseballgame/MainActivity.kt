@@ -10,9 +10,9 @@ import kr.tjoeun.numberbaseballgame.adapters.ChatAdapter
 import kr.tjoeun.numberbaseballgame.datas.Chat
 
 class MainActivity : BaseActivity() {
-
+//컴퓨터 출제 질문 숫자담을 배열
     val cpuNumList = ArrayList<Int>()
-
+//대화내용 ArrayList
     val chatList = ArrayList<Chat>()
     lateinit var mChatAdapter : ChatAdapter
 
@@ -25,10 +25,10 @@ class MainActivity : BaseActivity() {
 
     override fun setupEvents() {
         inputBtn.setOnClickListener {
-
+//사용자 입력받은 변수
             val inputNum = numberEdt.text.toString()
 
-
+//입력값이 세자리가 아닌 경우 오류
             if (inputNum.length != 3)
             {
                 Toast.makeText(mContext, "세자리 숫자만 입력 가능합니다." , Toast.LENGTH_SHORT).show()
@@ -37,15 +37,15 @@ class MainActivity : BaseActivity() {
             }
 
 
-
+//입력자가 입력한 값 ME 로 채팅내역 ListView 표시
             chatList.add(Chat("ME",inputNum))
-
+//입력내용 바로 화면 반영되도록
             mChatAdapter.notifyDataSetChanged()
             
-
+//입력완료 후 입력값 초기화.
             numberEdt.setText("")
 
-
+//사용자 입력값과 비교하여 ?S ?B 검사.
             checkUserInpitStrikeAndBall(inputNum)
 
         }
@@ -53,10 +53,10 @@ class MainActivity : BaseActivity() {
 
     fun checkUserInpitStrikeAndBall(input: String) {
 
-
+//String을 Int로 변경
         val number = input.toInt()  // "256" => 256
 
-
+//Int를 ArrayList로 반영
         val numArr = ArrayList<Int>()
 
         numArr.add(number / 100)    //100의 자리 2: 256 /100 = 2 => Int끼리 나눈경우 Int로 출력
