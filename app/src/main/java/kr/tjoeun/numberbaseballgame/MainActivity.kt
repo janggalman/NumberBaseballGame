@@ -2,6 +2,7 @@ package kr.tjoeun.numberbaseballgame
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
@@ -46,8 +47,23 @@ class MainActivity : BaseActivity() {
 //            한번 숫자 입력시 입력칸 비워주기
             numberEdt.setText("")
 
-        }
+//            입력한 값을 가지고 ?S ?B인지 판단해서 답장하기
+            checkUserInpitStrikeAndBall(inputNum)
 
+        }
+    }
+
+    fun checkUserInpitStrikeAndBall(input: String) {
+
+//        input : String을 Int로 변경하자.
+        val number = input.toInt()  // "256" => 256
+
+//        세자리 숫자를 =>세칸의 배열로 분리. 256 => 2, 5 ,6
+        val numArr = ArrayList<Int>()
+
+        numArr.add(number / 100)    //100의 자리 2: 256 /100 = 2 => Int끼리 나눈경우 Int로 출력
+        numArr.add(number / 10 % 10)  //10의 자리 5 :256 / 10 % 10 =5
+        numArr.add(number % 10)     //1의 자리 6 : 256 % 10 = 6
 
     }
 
@@ -55,6 +71,11 @@ class MainActivity : BaseActivity() {
 
 //        정답이 될 문제를 미리 만들어두자.
         makeQuestionNum()
+
+//        로그로 정답을 미리 확인
+        for (num in cpuNumList) {
+            Log.d("문제 출제", num.toString())
+        }
 
         chatList.add(Chat("CPU" , "숫자 야구게임에 오신것을 환영합니다."))
         chatList.add(Chat("CPU" , "세자리 숫자를 맞춰주세요."))
